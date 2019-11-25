@@ -43,6 +43,11 @@ namespace pso {
         */
         void print_basic_properties();
 
+        /*
+        @brief get local mat
+        */
+        const Eigen::MatrixXd& get_local_mat();
+
     private:
         Eigen::MatrixXd local_mat_;
     };

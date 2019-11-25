@@ -75,4 +75,8 @@ namespace pso {
         std::cout << "mat.rows = " << local_mat_.rows() << std::endl;
         std::cout << "mat.cols = " << local_mat_.cols() << std::endl;
     }
+
+    const Eigen::MatrixXd& local_mat_operator::get_local_mat() {
+        return local_mat_;
+    }
 }
