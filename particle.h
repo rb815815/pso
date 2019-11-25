@@ -1,47 +1,73 @@
-#ifndef __PARTICLE_H_
-#define __PARTICLE_H_
+#ifndef __PSO_PARTICLE_H_
+#define __PSO_PARTICLE_H_
 
 #include <iostream>
 #include <functional>
+#include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
 
-typedef Eigen::VectorXd Var;
+namespace pso {
 
-class particle{
-public:
-    particle();
+    class particle{
+    public:
+        /*
+        @brief default constructor
+        */
+        particle();
 
-    /*
-    @brief init parameters with random number
-    */
-    void init_with_ramdom_param();
+        /*
+        @brief update the parameters of a particle
+        */
+        void update_particle_state(const Eigen::VectorXd&,
+                                const Eigen::VectorXd&,
+                                const double&);
 
-    /*
-    @brief update the postion
-    */
-    void update_particle_state();
+        /*
+        @brief set current position
+        */
+        void set_position(const Eigen::VectorXd&);
 
-    /*
-    @brief evaluate the cost function
-    */
-    void evaluate();
+        /*
+        @brief get current position
+        */
+        const Eigen::VectorXd& get_position();
 
-private:
-    int dimension_;     // the dimension of specific problem
-    Var position_;      // current position
-    Var velocity_;      // current velocity
-    Var pos_max_;       // pos high threshold
-    Var pos_min_;       // pos low  threshold
-    Var v_max_;         // vel high threshold
-    Var v_min_;         // vel low  threshold
-    Var gbest_;         // local optimization pos
-    double fitness_;    // best fitness value
-    double c1;          // social factor c1
-    double c2;          // factor c2
+        /*
+        @brief set current velocity
+        */
+        void set_velocity(const Eigen::VectorXd&);
 
-    // forward declaration
-    class cost_function;
-    cost_function* loss_func;
-};
+        /*
+        @brief get current veloctiy
+        */
+        const Eigen::VectorXd& get_veloctiy();
+
+        /*
+        @brief set current pbest_
+        */
+        void set_pbest(const Eigen::VectorXd&);
+
+        /*
+        @brief get current pbest
+        */
+        const Eigen::VectorXd& get_pbest();
+
+        /*
+        @brief set current fitness
+        */
+        void set_fitness(const Eigen::VectorXd&, const double&);
+
+        /*
+        @brief get current fitness
+        */
+        const double& get_fitness();
+
+    private:
+        Eigen::VectorXd position_;  // current position
+        Eigen::VectorXd velocity_;  // current velocity
+        Eigen::VectorXd pbest_;     // local optimization pos
+        double fitness_;            // best fitness value
+    };
+}
 
 #endif

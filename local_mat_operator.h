@@ -8,33 +8,44 @@
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/Dense>
 
-class local_mat_operator
-{
-public:
-    // default constructor
-    local_mat_operator();
+namespace pso {
+    class local_mat_operator
+    {
+    public:
+        /*
+        @brief default constructor
+        */
+        local_mat_operator();
 
-    // constructor with exitsting matrix
-    local_mat_operator(const Eigen::MatrixXd& existing_mat);
+        /*
+        @brief constructor with exitsting matrix
+        */
+        local_mat_operator(const Eigen::MatrixXd& existing_mat);
 
-    /*
-    @brief save matrix to local txt file  
-    @param path output file path
-    */
-    bool save_txt_file(const std::string path);
+        /*
+        @brief destructor
+        */
+        virtual ~local_mat_operator();
 
-    /*
-    @brief load local matrix file to memory
-    */
-    bool load_local_file(const std::string path);
+        /*
+        @brief save matrix to local txt file  
+        @param path output file path
+        */
+        bool save_to_file(const std::string path);
 
-    /*
-    @brief print basic properties of local_mat_
-    */
-    void print_basic_properties();
+        /*
+        @brief load local matrix file to memory
+        */
+        bool load_local_file(const std::string path);
 
-private:
-    Eigen::MatrixXd local_mat_;
-};
+        /*
+        @brief print basic properties of local_mat_
+        */
+        void print_basic_properties();
+
+    private:
+        Eigen::MatrixXd local_mat_;
+    };
+}
 
 #endif
