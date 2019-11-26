@@ -16,7 +16,7 @@ namespace pso {
     }
 
     // compare the fitness value
-    void Particle::update_Particle_state(
+    void Particle::update_particle_state(
         const Eigen::VectorXd& position,
         const Eigen::VectorXd& velocity,
         const double& fitness) {

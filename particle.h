@@ -24,7 +24,7 @@ namespace pso {
         /*
         @brief update the parameters of a Particle
         */
-        void update_Particle_state(const Eigen::VectorXd&,
+        void update_particle_state(const Eigen::VectorXd&,
                                 const Eigen::VectorXd&,
                                 const double&);
 
