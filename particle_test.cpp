@@ -4,7 +4,7 @@ using namespace pso;
 
 // check whether the defaul constructor works correctly
 void test_default_constructor() {
-    particle p;
+    Particle p;
     std::cout << "the fitness value : " << p.get_fitness()
         << std::endl << std::endl;;
 }
@@ -15,8 +15,8 @@ void test_get_set_methods() {
     Eigen::VectorXd vec_vel = Eigen::VectorXd::Random(5,1);
     double fitness = 10.0;
 
-    particle p;
-    p.update_particle_state(vec_pos, vec_vel, fitness);
+    Particle p;
+    p.update_Particle_state(vec_pos, vec_vel, fitness);
 
     std::cout << "position : "<< std::endl << p.get_position() << std::endl;
     std::cout << "velocity : " << std::endl << p.get_veloctiy() << std::endl;
@@ -26,10 +26,10 @@ void test_get_set_methods() {
 
 int main() {
 
-    std::cout << "test_particle_constructor " << std::endl;
+    std::cout << "test_Particle_constructor " << std::endl;
     test_default_constructor();
 
-    std::cout << "test_particle_get_set_methods " << std::endl;
+    std::cout << "test_Particle_get_set_methods " << std::endl;
     test_get_set_methods();
 
     return 0;

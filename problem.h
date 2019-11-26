@@ -1,3 +1,9 @@
+// PSO solver for neutron spectrum unfolding problem
+// Copyright 2019 CDUT. All rights reserved.
+//
+// Author: 819701938@qq.com (Heyi Tan)
+// Date :  2019.11.25
+
 #ifndef __PSO_PROBLEM_
 #define __PSO_PROBLEM_
 
@@ -18,7 +24,7 @@ namespace pso {
         virtual ~Problem();
 
         /*
-        @brief constructor with given file path        
+        @brief constructor with given file path
         */
         Problem(std::string response_mat_path,
                 std::string observed_vec_path);

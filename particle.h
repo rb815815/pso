@@ -1,3 +1,9 @@
+// PSO solver for neutron spectrum unfolding problem
+// Copyright 2019 CDUT. All rights reserved.
+//
+// Author: 819701938@qq.com (Heyi Tan)
+// Date :  2019.11.25
+
 #ifndef __PSO_PARTICLE_H_
 #define __PSO_PARTICLE_H_
 
@@ -8,17 +14,17 @@
 
 namespace pso {
 
-    class particle{
+    class Particle{
     public:
         /*
         @brief default constructor
         */
-        particle();
+        Particle();
 
         /*
-        @brief update the parameters of a particle
+        @brief update the parameters of a Particle
         */
-        void update_particle_state(const Eigen::VectorXd&,
+        void update_Particle_state(const Eigen::VectorXd&,
                                 const Eigen::VectorXd&,
                                 const double&);
 

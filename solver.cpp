@@ -1,10 +1,29 @@
+// PSO solver for neutron spectrum unfolding problem
+// Copyright 2019 CDUT. All rights reserved.
+//
+// Author: 819701938@qq.com (Heyi Tan)
+// Date :  2019.11.25
+
 #include "solver.h"
+#include "particle.h"
+#include "problem.h"
 
-namespace pso {        
+namespace pso {
 
-    explicit Solver::Solver(const Optioins&);
+    Solver::Solver(const Options& options) 
+        : options_(options) 
+    {}
 
-    virtual Solver::~Solver();
+    Solver::~Solver() {
+        delete ptr_problem_;
+        delete ptr_particles_;
+        delete ptr_cost_function;
+        ptr_problem_ = nullptr;
+        ptr_particles_ = nullptr;
+        ptr_cost_function = nullptr;
+    }
 
-    virtual::void start();
+    void Solver::start() {
+
+    }
 }

@@ -1,3 +1,9 @@
+// PSO solver for neutron spectrum unfolding problem
+// Copyright 2019 CDUT. All rights reserved.
+//
+// Author: 819701938@qq.com (Heyi Tan)
+// Date :  2019.11.25
+
 #include "problem.h"
 #include "local_mat_operator.h"
 
@@ -12,9 +18,11 @@ namespace pso {
             std::string observed_vec_path) {
         local_mat_loader_ = new local_mat_operator();
         bool success = false;
+
         // try to load local response matrix file
         success = local_mat_loader_->load_local_file(response_mat_path);
         response_mat_ = local_mat_loader_->get_local_mat();
+        
         // try to load local observed data
         success &= local_mat_loader_->load_local_file(observed_vec_path);
         observed_vec_ = local_mat_loader_->get_local_mat();

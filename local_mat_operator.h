@@ -1,3 +1,9 @@
+// PSO solver for neutron spectrum unfolding problem
+// Copyright 2019 CDUT. All rights reserved.
+//
+// Author: 819701938@qq.com (Heyi Tan)
+// Date :  2019.11.25
+
 #ifndef __LOCAL_MAT_OPERATOR_
 #define __LOCAL_MAT_OPERATOR_
 
