@@ -35,8 +35,8 @@ namespace pso {
 
     Solver::~Solver() {
         delete ptr_problem_;
-        delete ptr_particles_;
         delete ptr_cost_function_;
+        delete[] ptr_particles_;
         ptr_problem_ = nullptr;
         ptr_particles_ = nullptr;
         ptr_cost_function_ = nullptr;
@@ -95,7 +95,7 @@ namespace pso {
             truncate_position_value(random_pos_vec);
             truncate_velocity_value(random_vel_vec);
             double init_fitness = evaluate(random_pos_vec);
-            assign_state_to_particle(ptr_particles_[i], random_pos_vec, random_vel_vec, init_fitness);
+            assign_state_to_particle(&ptr_particles_[i], random_pos_vec, random_vel_vec, init_fitness);
         }
     }
 
@@ -107,22 +107,22 @@ namespace pso {
         if(particle == nullptr) {
             return;
         }
-
+        // check the correctness of input data's dimension
         if((position.rows() != particle->get_position.rows() ||
             (velocity.rows() != particle->get_veloctiy.rows()))) {
             std::cout << "fatal error, assignment with wrong dimensions" << std::endl;
             exit(-1);
         }
-
+        // assign values to particles
         particle->update_particle_state(position, velocity, fitness);
     }
 
     void Solver::truncate_position_value(Eigen::VectorXd& position_vec) {
-        return truncate_vec_value(position_vec, pos_max_, pos_min_);
+        truncate_vec_value(position_vec, pos_max_, pos_min_);
     }
 
     void Solver::truncate_velocity_value(Eigen::VectorXd& velocity_vec) {
-        return truncate_vec_value(velocity_vec, vel_max_, vel_min_);
+        truncate_vec_value(velocity_vec, vel_max_, vel_min_);
     }
 
     void Solver::truncate_vec_value(
@@ -131,12 +131,14 @@ namespace pso {
         const Eigen::VectorXd& lower_bound_vec) {
         Eigen::VectorXd result_vec = Eigen::VectorXd::Zero(dimension_, 1);
         for(int i=0; i<state_vec.rows(); i++) {
+            // compare with predefined threshold value and truncate values to proper region
             result_vec[i] = state_vec[i] > upper_bound_vec[i] ? state_vec[i] : upper_bound_vec[i];
             result_vec[i] = state_vec[i] > lower_bound_vec[i] ? state_vec[i] : lower_bound_vec[i];
         }
     }
 
     double Solver::evaluate(Particle* particle) {
+        // be sure the given pointer not to be nullptr
         if((particle == nullptr) || (ptr_problem_ == nullptr)) {
             std::cout << "problem is null" << std::endl;
             exit(0);

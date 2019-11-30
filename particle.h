@@ -28,51 +28,65 @@ public:
                             const Eigen::VectorXd& velocity,
                             const double& fitness);
 
-    /*
-    @brief set current position
+    /**
+    * @brief set current position
+    * @param[in] position position value in Eigen::VectorXd type
     */
-    void set_position(const Eigen::VectorXd&);
+    void set_position(const Eigen::VectorXd& position);
 
-    /*
-    @brief get current position
+    /**
+    * @brief get current position
+    *
+    * @return a const reference to position_
     */
     const Eigen::VectorXd& get_position();
 
-    /*
-    @brief set current velocity
+    /**
+    * @brief set current velocity
+    * @param[in] velocity   velocity value in Eigen::VectorXd type
     */
-    void set_velocity(const Eigen::VectorXd&);
+    void set_velocity(const Eigen::VectorXd& velocity);
 
-    /*
-    @brief get current veloctiy
+    /**
+    * @brief get current veloctiy
+    * 
+    * @return a const reference to velocity_
     */
     const Eigen::VectorXd& get_veloctiy();
 
-    /*
-    @brief set current pbest_
+    /**
+    * @brief set current pbest_
+    * 
+    * @return pbest     pbest value in Eigen::VectorXd type
     */
-    void set_pbest(const Eigen::VectorXd&);
+    void set_pbest(const Eigen::VectorXd& pbest);
 
-    /*
-    @brief get current pbest
+    /**
+    * @brief get current pbest
+    *
+    * @return a const reference to pbset
     */
     const Eigen::VectorXd& get_pbest();
 
-    /*
-    @brief set current fitness
+    /**
+    * @brief set current fitness
+    * @param[in] position   position value in Eigen::VectorXd type
+    * @param[in] fitness    fitness value
     */
-    void set_best_fitness(const Eigen::VectorXd&, const double&);
+    void set_best_fitness(const Eigen::VectorXd& position, const double& fitness);
 
-    /*
-    @brief get current fitness
+    /**
+    * @brief get current fitness
+    * 
+    * @return a const reference to best_fitness_
     */
     const double& get_best_fitness();
 
 private:
     Eigen::VectorXd position_;  // current position
     Eigen::VectorXd velocity_;  // current velocity
-    Eigen::VectorXd pbest_;     // local optimization pos
-    double best_fitness_;            // best fitness value
+    Eigen::VectorXd pbest_;     // local optimization position
+    double best_fitness_;       // best fitness value
 };
 
 }
