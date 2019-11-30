@@ -13,25 +13,24 @@ namespace pso {
 
     Solver::Solver(
         int max_iter,            // max iteration number
-        int cur_iter,            // current iteration count
         int dimension,           // the variable dimension of specific problem
-        int num_partilces,       // the number of particles
+        int num_particles,       // the number of particles
         double c1,               // congnition factor
         double c2,               // social factor
         double epsilon,          // stop criteria
         double w_max,            // w high threshold
         double w_min             // w low threshold
     ) : max_iter_(max_iter),
-        cur_iter_(cur_iter),
         dimension_(dimension),
-        num_partilces_(num_partilces),
+        num_particles_(num_particles),
         c1_(c1),
         c2_(c2),
         epsilon_(epsilon),
         w_max_(w_max),
         w_min_(w_min) {
         // set default value to be false
-        is_problem_success_ = false;        
+        is_problem_success_ = false;
+        cur_iter_ = 0;
     }
 
     Solver::~Solver() {
@@ -50,7 +49,7 @@ namespace pso {
     const Eigen::VectorXd& Solver::get_pos_max() {
         return pos_max_;
     }
-        
+
     void Solver::set_pos_min(const Eigen::VectorXd& pos_min) {
         pos_min_ = pos_min;
     }
@@ -81,15 +80,23 @@ namespace pso {
         ptr_cost_function_ = cost_function;
 
         dimension_ = ptr_problem_->get_dimension();
-        set_pos_max(Eigen::MatrixXd::Ones(dimension_, 1)*1000);
+        set_pos_max(Eigen::MatrixXd::Ones(dimension_, 1)*100);
         set_pos_min(Eigen::MatrixXd::Zero(dimension_, 1));
         set_vel_max(Eigen::MatrixXd::Ones(dimension_, 1)*100);
         set_vel_max(Eigen::MatrixXd::Ones(dimension_, 1)*(-100));
     }
 
-    void Solver::init_particles() {         
-        ptr_particles_ = new Particle[num_partilces_];  // allocate space
-        
+    void Solver::init_particles() {
+        // allocate space for partilces
+        ptr_particles_ = new Particle[num_particles_];
+        for(int i=0; i<num_particles_; i++) {
+            Eigen::VectorXd random_pos_vec = Eigen::VectorXd::Random(dimension_, 1);
+            Eigen::VectorXd random_vel_vec = Eigen::VectorXd::Random(dimension_, 1);
+            truncate_position_value(random_pos_vec);
+            truncate_velocity_value(random_vel_vec);
+            double init_fitness = evaluate(random_pos_vec);
+            assign_state_to_particle(ptr_particles_[i], random_pos_vec, random_vel_vec, init_fitness);
+        }
     }
 
     void Solver::assign_state_to_particle(
@@ -130,10 +137,21 @@ namespace pso {
     }
 
     double Solver::evaluate(Particle* particle) {
+        if((particle == nullptr) || (ptr_problem_ == nullptr)) {
+            std::cout << "problem is null" << std::endl;
+            exit(0);
+        }
+
         return ptr_cost_function_->compute_loss_value(*ptr_problem_, *particle);
     }
 
-    void Solver::start() {
+    double Solver::evaluate(Eigen::VectorXd& position) {
+        Particle particle;
+        particle.set_position(position);
+        return evaluate(&particle);
+    }
 
+    void Solver::start() {
+        
     }
 }

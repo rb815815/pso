@@ -12,7 +12,7 @@ namespace pso {
     // set initial fitness_ to be some large positive number
     Particle::Particle()
     {
-        fitness_ = 10000.0;
+        best_fitness_ = 10000.0;
     }
 
     // compare the fitness value
@@ -22,7 +22,7 @@ namespace pso {
         const double& fitness) {
         set_position(position);
         set_velocity(velocity);
-        set_fitness(position, fitness);
+        set_best_fitness(position, fitness);
     }
 
     void Particle::set_position(const Eigen::VectorXd& position) {
@@ -49,14 +49,14 @@ namespace pso {
         return pbest_;
     }
 
-    void Particle::set_fitness(const Eigen::VectorXd& position, const double& fitness) {
-        if(fitness < fitness_) {
-            fitness_ = fitness;
+    void Particle::set_best_fitness(const Eigen::VectorXd& position, const double& fitness) {
+        if(fitness < best_fitness_) {
+            best_fitness_ = fitness;
             pbest_ = position;
         }
     }
 
-    const double& Particle::get_fitness() {
-        return fitness_;
+    const double& Particle::get_best_fitness() {
+        return best_fitness_;
     }
 }

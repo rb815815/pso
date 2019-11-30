@@ -14,66 +14,67 @@
 
 namespace pso {
 
-    class Particle{
-    public:
-        /*
-        @brief default constructor
-        */
-        Particle();
+class Particle{
+public:
+    Particle();
 
-        /*
-        @brief update the parameters of a Particle
-        */
-        void update_particle_state(const Eigen::VectorXd&,
-                                const Eigen::VectorXd&,
-                                const double&);
+    /**
+    * @brief update the parameters of a Particle
+    * @param[in] position   user provided position vector
+    * @param[in] velocity   user provided velocity vector
+    * @param[in] fitness    user provided fitness value
+    */
+    void update_particle_state(const Eigen::VectorXd& position,
+                            const Eigen::VectorXd& velocity,
+                            const double& fitness);
 
-        /*
-        @brief set current position
-        */
-        void set_position(const Eigen::VectorXd&);
+    /*
+    @brief set current position
+    */
+    void set_position(const Eigen::VectorXd&);
 
-        /*
-        @brief get current position
-        */
-        const Eigen::VectorXd& get_position();
+    /*
+    @brief get current position
+    */
+    const Eigen::VectorXd& get_position();
 
-        /*
-        @brief set current velocity
-        */
-        void set_velocity(const Eigen::VectorXd&);
+    /*
+    @brief set current velocity
+    */
+    void set_velocity(const Eigen::VectorXd&);
 
-        /*
-        @brief get current veloctiy
-        */
-        const Eigen::VectorXd& get_veloctiy();
+    /*
+    @brief get current veloctiy
+    */
+    const Eigen::VectorXd& get_veloctiy();
 
-        /*
-        @brief set current pbest_
-        */
-        void set_pbest(const Eigen::VectorXd&);
+    /*
+    @brief set current pbest_
+    */
+    void set_pbest(const Eigen::VectorXd&);
 
-        /*
-        @brief get current pbest
-        */
-        const Eigen::VectorXd& get_pbest();
+    /*
+    @brief get current pbest
+    */
+    const Eigen::VectorXd& get_pbest();
 
-        /*
-        @brief set current fitness
-        */
-        void set_fitness(const Eigen::VectorXd&, const double&);
+    /*
+    @brief set current fitness
+    */
+    void set_best_fitness(const Eigen::VectorXd&, const double&);
 
-        /*
-        @brief get current fitness
-        */
-        const double& get_fitness();
+    /*
+    @brief get current fitness
+    */
+    const double& get_best_fitness();
 
-    private:
-        Eigen::VectorXd position_;  // current position
-        Eigen::VectorXd velocity_;  // current velocity
-        Eigen::VectorXd pbest_;     // local optimization pos
-        double fitness_;            // best fitness value
-    };
+private:
+    Eigen::VectorXd position_;  // current position
+    Eigen::VectorXd velocity_;  // current velocity
+    Eigen::VectorXd pbest_;     // local optimization pos
+    double best_fitness_;            // best fitness value
+};
+
 }
 
 #endif

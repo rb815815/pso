@@ -15,28 +15,35 @@
 
 namespace pso {
 
-    // Cost function to evaluate loss value for neutron spectrum unfolding problem
-    //
-    //   Cost = ( ||Obs - R*phi||^2 + ||phi||^2/n )/||Obs||^2
-    // 
-    class Cost_function
-    {
-    public:
-        Cost_function();
+// Cost function which evaluate the loss value of neutron spectrum unfolding problem
+//
+//   Cost = ( ||Obs - R*phi|| + ||phi||*mean(phi) )/||Obs||
+// 
+// Example:
+//      Cost cost;
+//      double loss_value = cost.compute_loss_value(prolem, particle);
+//
 
-        /*
-        @brief destructor
-        */
-        virtual ~Cost_function();
+class Cost_function
+{
+public:
+    Cost_function();
 
-        /*
-        @brief evaluate loss value
-        */
-        double compute_loss_value(Problem& problem, Particle& particle);
+    virtual ~Cost_function();
 
-    private:
-        int dimension_;     // the variable dimension of specific problem
-    };
+    /**
+    * @brief evaluate loss value
+    * @param[in] problem      An Problem instance
+    * @param[in] particle     An Particle instance
+    *
+    * @return loss value of given particle and problem
+    */
+    double compute_loss_value(Problem& problem, Particle& particle);
+
+private:
+    int dimension_;     // the variable dimension of specific problem
+};
+
 }
 
 #endif

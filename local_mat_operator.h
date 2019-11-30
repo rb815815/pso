@@ -15,48 +15,58 @@
 #include <eigen3/Eigen/Dense>
 
 namespace pso {
-    class local_mat_operator
-    {
-    public:
-        /*
-        @brief default constructor
-        */
-        local_mat_operator();
+class local_mat_operator
+{
+public:
+    local_mat_operator();
 
-        /*
-        @brief constructor with exitsting matrix
-        */
-        local_mat_operator(const Eigen::MatrixXd& existing_mat);
+    /**
+    * @brief init local_mat_ with an exitsting matrix
+    * @param[in] existing_mat   an Eigen::MatrixXd instance in memory
+    */
+    local_mat_operator(const Eigen::MatrixXd& existing_mat);
 
-        /*
-        @brief destructor
-        */
-        virtual ~local_mat_operator();
+    /**
+    * @brief destructor
+    */
+    virtual ~local_mat_operator();
 
-        /*
-        @brief save matrix to local txt file  
-        @param path output file path
-        */
-        bool save_to_file(const std::string path);
+    /**
+    * @brief save matrix to local txt file  
+    * @param[in] path output file path
+    * 
+    * @return is save_to_file successful
+    *  -- 0 : failed
+    *  -- 1 : sucess
+    */
+    bool save_to_file(const std::string path);
 
-        /*
-        @brief load local matrix file to memory
-        */
-        bool load_local_file(const std::string path);
+    /**
+    * @brief load local matrix file to memory
+    * @param[in] path   local file path
+    * 
+    * @return is load_local_file successful
+    *  -- 0 : failed
+    *  -- 1 : sucess
+    */
+    bool load_local_file(const std::string path);
 
-        /*
-        @brief print basic properties of local_mat_
-        */
-        void print_basic_properties();
+    /**
+    * @brief print basic properties of local_mat_
+    */
+    void print_basic_properties();
 
-        /*
-        @brief get local mat
-        */
-        const Eigen::MatrixXd& get_local_mat();
+    /**
+    * @brief get local mat
+    *
+    * @return a const reference to local_mat_
+    */
+    const Eigen::MatrixXd& get_local_mat();
 
-    private:
-        Eigen::MatrixXd local_mat_;
-    };
+private:
+    Eigen::MatrixXd local_mat_;
+};
+
 }
 
 #endif
