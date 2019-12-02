@@ -8,16 +8,16 @@
 
 namespace pso {
 
-local_mat_operator::local_mat_operator()
+LocalMatOperator::LocalMatOperator()
 {}
 
-local_mat_operator::local_mat_operator(const Eigen::MatrixXd& existing_mat) {
+LocalMatOperator::LocalMatOperator(const Eigen::MatrixXd& existing_mat) {
     local_mat_ = existing_mat;
 }
 
-local_mat_operator::~local_mat_operator() {}
+LocalMatOperator::~LocalMatOperator() {}
 
-bool local_mat_operator::save_to_file(const std::string path) {
+bool LocalMatOperator::save_to_file(const std::string path) {
     std::ofstream out_file(path);
     // check whether the file had been opened
     if(!out_file.is_open()) {
@@ -36,7 +36,7 @@ bool local_mat_operator::save_to_file(const std::string path) {
     return true;
 }
 
-bool local_mat_operator::load_local_file(const std::string path) {
+bool LocalMatOperator::load_local_file(const std::string path) {
     // allocate space to hold variables
     std::vector<double> values;
     int row = 0;
@@ -78,12 +78,12 @@ bool local_mat_operator::load_local_file(const std::string path) {
     }
 }
 
-void local_mat_operator::print_basic_properties() {
+void LocalMatOperator::print_basic_properties() {
     std::cout << "mat.rows = " << local_mat_.rows() << std::endl;
     std::cout << "mat.cols = " << local_mat_.cols() << std::endl;
 }
 
-const Eigen::MatrixXd& local_mat_operator::get_local_mat() {
+const Eigen::MatrixXd& LocalMatOperator::get_local_mat() {
     return local_mat_;
 }
 

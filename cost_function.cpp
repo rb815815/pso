@@ -8,23 +8,34 @@
 
 namespace pso {
 
-Cost_function::Cost_function() : dimension_(0){}
+CostFunction::CostFunction() {
+    dimension_ = 0;
+}
 
-Cost_function::~Cost_function() {}
+CostFunction::~CostFunction() {}
 
-double Cost_function::compute_loss_value(Problem& problem, 
-                                            Particle& particle) {
+double CostFunction::compute_loss_value_of_particle(Problem* problem, 
+                                        Particle* particle) {                                         
+    return compute_loss_value_with_given_position(problem, particle->get_position());
+}
+
+double CostFunction::compute_loss_value_with_given_position(Problem* problem, 
+                                                            const Eigen::VectorXd& position) {
     // compute response vector (Ncal = R*phi)
-    Eigen::VectorXd vec_cal = problem.get_response_matrix() *
-        particle.get_position();
+    Eigen::VectorXd vec_cal = problem->get_response_matrix() * position;
+
     // compute residual vector (Ncode - Ncal)
-    Eigen::VectorXd vec_residual = problem.get_observed_data() - vec_cal;
+    Eigen::VectorXd vec_residual = problem->get_observed_data() - vec_cal;
+
     // compute l2 norm of residual vector
     double vec_residual_norm =  vec_residual.norm();
+
     // regularization = mean(partilce.position) * l2norm(particle.position)
-    double regularization = particle.get_position().mean() * particle.get_position().norm(); 
+    double regularization = position.mean() * position.norm(); 
+
     // compute l2 norm of observed data vector
-    double obs_data_norm = problem.get_observed_data().norm();
+    double obs_data_norm = problem->get_observed_data().norm();
+    
     // compute loss value
     double loss_value = (vec_residual_norm + regularization) / obs_data_norm;
 

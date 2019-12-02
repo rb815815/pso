@@ -16,7 +16,7 @@ Problem::~Problem() {
 
 Problem::Problem(std::string response_mat_path,
         std::string observed_vec_path) {
-    local_mat_loader_ = new local_mat_operator();
+    local_mat_loader_ = new LocalMatOperator();
     bool success = false;
 
     // try to load local response matrix file
@@ -34,7 +34,7 @@ Problem::Problem(std::string response_mat_path,
         load_success_ = false;
     }
     else {
-        if(response_mat_.cols() != observed_vec_.cols()) {
+        if(response_mat_.rows() != observed_vec_.rows()) {
             std::cout << "build the problem failed due to the dimension \
                 of R and Obs mismatch" << std::endl;
                 load_success_ = false;
@@ -56,7 +56,7 @@ const int& Problem::get_dimension() {
     return dimension_;
 }
 
-const Eigen::MatrixXd Problem::get_response_matrix() {
+const Eigen::MatrixXd& Problem::get_response_matrix() {
     return response_mat_;
 }
 

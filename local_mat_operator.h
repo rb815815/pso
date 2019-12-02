@@ -15,21 +15,21 @@
 #include <eigen3/Eigen/Dense>
 
 namespace pso {
-class local_mat_operator
+class LocalMatOperator
 {
 public:
-    local_mat_operator();
+    LocalMatOperator();
 
     /**
     * @brief init local_mat_ with an exitsting matrix
     * @param[in] existing_mat   an Eigen::MatrixXd instance in memory
     */
-    local_mat_operator(const Eigen::MatrixXd& existing_mat);
+    LocalMatOperator(const Eigen::MatrixXd& existing_mat);
 
     /**
     * @brief destructor
     */
-    virtual ~local_mat_operator();
+    virtual ~LocalMatOperator();
 
     /**
     * @brief save matrix to local txt file  

@@ -56,8 +56,7 @@ public:
 
     /**
     * @brief set current pbest_
-    * 
-    * @return pbest     pbest value in Eigen::VectorXd type
+    * @param[in] pbest     pbest value in Eigen::VectorXd type
     */
     void set_pbest(const Eigen::VectorXd& pbest);
 

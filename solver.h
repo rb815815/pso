@@ -17,7 +17,7 @@ namespace pso {
 // forward declaration
 class Problem;
 class Particle;
-class Cost_function;
+class CostFunction;
 
 // Solver that manage the optimization process
 //
@@ -68,7 +68,7 @@ public:
     /**
     * @brief forbid assignment operator
     */
-    void Solver(const Solver&) = delete;
+    void operator=(const Solver&) = delete;
 
     virtual ~Solver();
 
@@ -130,19 +130,24 @@ public:
     * @param[in] problem        pointer to an existing Problem instance
     * @param[in] cost_functoion pointer to an existing Cost_function instance
     */
-    void build_problem(Problem* problem, Cost_function* cost_functoion);
+    void build_problem(Problem* problem, CostFunction* cost_functoion);
+
+    /**
+    * @brief printf basic information
+    */
+    void print_debug_info();
 
     /**
     * @brief starting iteration
     */
     void start();
 
-private:
     /**
     * @brief allocate memory and assign init value for particles
     */
     void init_particles();
 
+//private:
     /**
     * @brief assign state to particles and truncate the value is neccessray
     * @param[in] particle   pointer to an existing particle instance
@@ -194,7 +199,7 @@ private:
     * 
     * @return the loss value of given position
     */
-    double evaluate(Eigen::VectorXd& position);
+    double evaluate(const Eigen::VectorXd& position);
 
     Eigen::VectorXd zbest_;     // the global optimal positon in history
     double global_fitness_;     // the global optimal cost value in history
@@ -219,7 +224,7 @@ private:
 
     Particle *ptr_particles_;           // pointer to particle objects
     Problem *ptr_problem_;              // pointer to Problem object
-    Cost_function *ptr_cost_function_;  // pointer to Cost_function object
+    CostFunction *ptr_cost_function_;  // pointer to Cost_function object
 };
 
 }

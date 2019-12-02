@@ -24,21 +24,30 @@ namespace pso {
 //      double loss_value = cost.compute_loss_value(prolem, particle);
 //
 
-class Cost_function
+class CostFunction
 {
 public:
-    Cost_function();
+    CostFunction();
 
-    virtual ~Cost_function();
+    virtual ~CostFunction();
 
     /**
-    * @brief evaluate loss value
+    * @brief evaluate loss value with given problem and particle
     * @param[in] problem      An Problem instance
     * @param[in] particle     An Particle instance
     *
     * @return loss value of given particle and problem
     */
-    double compute_loss_value(Problem& problem, Particle& particle);
+    double compute_loss_value_of_particle(Problem* problem, Particle* particle);
+
+    /**
+    * @brief evaluate loss value given problem and value
+    * @param[in] problem      An Problem instance
+    * @param[in] particle     An Particle instance
+    *
+    * @return loss value of given particle and problem
+    */
+    double compute_loss_value_with_given_position(Problem* problem, const Eigen::VectorXd& position);
 
 private:
     int dimension_;     // the variable dimension of specific problem

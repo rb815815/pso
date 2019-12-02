@@ -14,7 +14,7 @@
 namespace pso {
 
 // forward declaration
-class local_mat_operator;
+class LocalMatOperator;
 
 class Problem {
 public:
@@ -56,19 +56,19 @@ public:
     /**
     * @brief get R matrix
     * 
-    * @return a const reference to response_matrix_
+    * @return a const reference to response_mat_
     */
-    const Eigen::MatrixXd get_response_matrix();
+    const Eigen::MatrixXd& get_response_matrix();
 
     /**
     * @brief get Obs vector
     * 
-    * @return a const reference to observed_data_
+    * @return a const reference to observed_vec_
     */
     const Eigen::VectorXd& get_observed_data();
 
     /**
-    * @brief get load state
+    * @brief get loading state
     * 
     * @return is problem built successful
     *  -- 0: failed
@@ -78,10 +78,10 @@ public:
 
 private:
     bool load_success_;                 // has problem built successful
-    int dimension_;                     // the dimension of 
+    int dimension_;                     // the dimension of phi
     Eigen::MatrixXd response_mat_;      // R matrix
     Eigen::VectorXd observed_vec_;      // Ncode
-    local_mat_operator* local_mat_loader_;  // pointer to local_mat_operator
+    LocalMatOperator* local_mat_loader_;  // pointer to local_mat_operator
 };
 
 }

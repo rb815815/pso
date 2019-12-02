@@ -10,8 +10,7 @@
 namespace pso {
 
 // set initial fitness_ to be some large positive number
-Particle::Particle()
-{
+Particle::Particle() {
     best_fitness_ = 10000.0;
 }
 
@@ -30,7 +29,7 @@ void Particle::set_position(const Eigen::VectorXd& position) {
 }
 
 const Eigen::VectorXd& Particle::get_position() {
-    return position_;        
+    return position_;
 }
 
 void Particle::set_velocity(const Eigen::VectorXd& velocity) {
